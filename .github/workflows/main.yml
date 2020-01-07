@@ -3,7 +3,7 @@ name: Build and upload PDF
 on: 
   push:
     branches: master
-    paths: ['^latex/**']
+    #paths: ['^latex/**']
 
 jobs:
   build:
