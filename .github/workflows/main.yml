@@ -1,0 +1,31 @@
+name: CI
+
+on: 
+  push:
+    branches: master
+    paths: ['^latex/**']
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Github Action for LaTeX
+      uses: xu-cheng/latex-action@1.2.1
+      with:
+        # The root LaTeX file to be compiled
+        root_file: main.tex
+        # The working directory for the LaTeX engine
+        working_directory: latex # optional
+        # The LaTeX engine to be invoked
+        compiler: latexmk # optional, default is latexmk
+        # Extra arguments to be passed to the LaTeX engine
+        args: -pdf -file-line-error -interaction=nonstopmode # optional, default is -pdf -file-line-error -interaction=nonstopmode
+        # [Deprecated] Install extra packages by tlmgr
+        extra_packages: # optional
+        # Install extra packages by apk
+        extra_system_packages: # optional
+    - name: GitHub Pages Deploy
+      uses: maxheld83/ghpages@v0.2.1
