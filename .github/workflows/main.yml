@@ -13,7 +13,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Github Action for LaTeX
+    - name: Run pdfLaTeX
       uses: xu-cheng/latex-action@1.2.1
       with:
         # The root LaTeX file to be compiled
@@ -32,6 +32,9 @@ jobs:
       run: |
         mkdir -p pdf
         mv latex/main.pdf pdf/
+    - name: Touch .nojekyll
+      run: |
+        touch pdf/.nojekyll
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2
       env:
@@ -40,3 +43,5 @@ jobs:
         # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: ./pdf
+      with:
+        forceOrphan: true
