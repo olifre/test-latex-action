@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - name: Github Action for LaTeX
       uses: xu-cheng/latex-action@1.2.1
       with:
@@ -27,5 +28,11 @@ jobs:
         extra_packages: # optional
         # Install extra packages by apk
         extra_system_packages: # optional
+    - name: Pull out PDF artifact
+      run: |
+        mkdir -p pdf
+        mv latex/main.pdf pdf/
     - name: GitHub Pages Deploy
       uses: maxheld83/ghpages@v0.2.1
+      env:
+        BUILD_DIR: pdf
